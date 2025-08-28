@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  go-app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mydb
+    environment:
+      - DB_HOST=mydb
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASS=password
+      - DB_NAME=bookdb
+
+  mydb:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: bookdb
+    ports:
+      - "3306:3306"
